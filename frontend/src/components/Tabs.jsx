@@ -2,6 +2,9 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import AllJobs from './jobs/Alljobs';
+import Postjobs from './jobs/PostaJob';
+import AppliedJobs from './jobs/AppliedJobs';
 
 function HunterTabs() {
   const [value, setValue] = React.useState('one');
@@ -24,9 +27,9 @@ function HunterTabs() {
         <Tab value="three" label="APPLIED JOBS" />
       </Tabs>
       <div>
-        {value=='one' && <h1>ALL JOBS</h1>}
-        {value=='two' && <h1>POST JOBS</h1>}
-        {value=='three' && <h1>APPLIED JOBS</h1>}
+        {value=='one' && <AllJobs/>}
+        {value=='two' && <Postjobs/>}
+        {value=='three' && <AppliedJobs/>}
       </div>
     </Box>
   );

@@ -2,6 +2,7 @@ const express= require("express");
 const cors= require("cors");
 const { connection } = require("./db/db");
 const { userRouter } = require("./routes/userRoute");
+const { jobRouter } = require("./routes/jobRoute");
 require("dotenv").config();
 
 const app= express();
@@ -13,7 +14,8 @@ app.get("/",(req,res)=>{
     res.send("Welcome to job app url")
 })
 
-app.use("/user",userRouter)
+app.use("/user",userRouter);
+app.use("/jobs",jobRouter)
 
 app.listen(PORT,async()=>{
     try {

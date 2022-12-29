@@ -26,7 +26,7 @@ function FooterTabs() {
       <div>
         {value=='one' && <h3>We provide perfect matching job for you.</h3>}
         {value=='two' && <h3>Call us: 9876543210</h3>}
-        {value=='three' && <h3>Mail us: abc@gmail.com</h3>}
+        {value=='three' && <h3>Mail us: jobroom@co.in</h3>}
       </div>
     </Box>
   );

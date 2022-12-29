@@ -37,7 +37,15 @@ function ForgotPassword() {
 
   const handleClose = () => {
     setOpen(false);
-    setValue("one")
+    setValue("one");
+    setSuccess({
+    status:false,
+    message:null
+    });
+    setError({
+    status:false,
+    message:null
+    })
   };
 
   const sendOtp=()=>{
@@ -68,7 +76,18 @@ function ForgotPassword() {
     const name=document.getElementById("outlined-required").value;
     const password= document.getElementById("newpassword").value;
     const Cpassword= document.getElementById("confirmpassword").value;
-    if(password!==Cpassword){
+
+    if(inv=="" || name==""|| password==""|| Cpassword==""){
+      setError({
+        status:true,
+        message:"All fields are mandatory"
+      });
+      setSuccess({
+        status:false,
+        message:null
+      })
+    }
+    else if(password!==Cpassword){
       setError({
         status: true,
         message:"New Password and confirm password must be same."

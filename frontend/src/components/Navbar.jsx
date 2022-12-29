@@ -34,6 +34,10 @@ function Navbar() {
     navigate("/")
   }
 
+  const  gotoMyprofile=()=>{
+    navigate("/myaccount")
+  }
+
   React.useEffect(()=>{
     axios.get(`${url}/user/singleuser`,{
       headers:{
@@ -52,7 +56,6 @@ function Navbar() {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <HunterTabs/>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -102,25 +105,17 @@ function Navbar() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
+          <Avatar /> {user[0]?.firstname}
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            {/* <Settings fontSize="small" /> */}
-          </ListItemIcon>
-          Settings
+        <MenuItem onClick={gotoMyprofile}>
+          My account
         </MenuItem>
         <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            {/* <Logout fontSize="small" /> */}
-          </ListItemIcon>
           Logout
         </MenuItem>
       </Menu>
+      <HunterTabs/>
     </React.Fragment>
   );
 }
