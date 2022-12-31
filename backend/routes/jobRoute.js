@@ -77,11 +77,11 @@ if(appliedjobs){
 jobRouter.put("/auth/presentjob/:jobid",Authentication,async(req,res)=>{
 const {id}= req.body;
 const {jobid}= req.params;
-const job= await JobModel.findByIdAndUpdate({_id:jobid, user:id},{...req.body});
+const job= await JobModel.findOneAndUpdate({_id:jobid,postby:id},{...req.body});
 if(job){
     res.status(200).send(`Job successfully updated`)
 }else{
-    res.status(500).send(`Internal server error`)
+    res.status(401).send(`You can only edit the job you posted`)
 }
 })
 
@@ -106,7 +106,7 @@ jobRouter.post("/auth/job/apply",Authentication,async(req,res)=>{
 jobRouter.delete("/auth/delete/:jobid",Authentication,async(req,res)=>{
     const {id}= req.body;
     const {jobid}= req.params;
-    const existJob= await ApplyJobModel.findOneAndDelete({jobid,user:id});
+    const existJob= await JobModel.findOneAndDelete({_id:jobid,postby:id});
     if(existJob){
         res.status(200).send(`Job successfully deleted`)
     }else{

@@ -10,16 +10,25 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import EditaJob from './EditModal';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 
 export default function AllJobs() {
     const [jobs,setJobs]= React.useState([]);
     const url= import.meta.env.VITE_APP_BACKEND_URL;
     const token= JSON.parse(localStorage.getItem("jobPortalToken"));
+    const [error,setError]= React.useState({
+      status: false,
+      message: ""
+    })
+    const [success,setSuccess]= React.useState({
+      status: false,
+      message: ""
+    });
 
     React.useEffect(() => {
     axios.get(`${url}/jobs`)
@@ -32,19 +41,41 @@ export default function AllJobs() {
     })
     }, [token]);
 
-    // const deleteJob=(id)=>{
-    //   axios.delete(`${url}/auth/delete/${id}`,{
-    //     headers:{
-    //       token:token
-    //     }
-    //   })
-    //   .then((res)=>{
-    //     console.log(res)
-    //   })
-    //   .catch((err)=>{
-    //     console.log(err);
-    //   })
-    // }
+    const deleteJob=(id)=>{
+      
+      let text = "Are you sure you want to delete the Job?";
+      if (confirm(text) == true) {
+        axios.delete(`${url}/jobs/auth/delete/${id}`,{
+          headers:{
+            token:token
+          }
+        })
+        .then((res)=>{
+          //console.log(res);
+          setSuccess({
+            status: true,
+            message: "Job deleted Successfully"
+          });
+          setError({
+            status: false,
+            message: ""
+          })
+        })
+        .catch((err)=>{
+          //console.log(err);
+          setSuccess({
+            status: false,
+            message: ""
+          });
+          setError({
+            status: true,
+            message: "You are allowed to delete only the job you posted"
+          })
+        })
+      } else {
+        text = "You canceled!";
+      }
+  }
 
   return (
     <div>
@@ -55,6 +86,17 @@ export default function AllJobs() {
           </Typography>
         </Toolbar>
       </AppBar>
+      {error.status &&
+          <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error.message}
+          </Alert>
+        }
+        {success.status &&
+            <Alert severity="success">
+            {success.message}
+            </Alert>
+        }
       <main>
         {/* Hero unit */}
         <Box
@@ -90,7 +132,7 @@ export default function AllJobs() {
                       Role : {job.position}
                     </Typography>
                     <Typography variant="b" component="h4">
-                      Salary : {job.salary}/year
+                      Salary : {job.salary} LPA/year
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -98,10 +140,11 @@ export default function AllJobs() {
                   <Link to={`/user/applyajob/${job._id}`}>
                     <Button size="small" variant='contained'>Details</Button>
                   </Link>
-                    {/* <EditaJob/>
+                    <EditaJob id={job._id} />
                     <Button size="small" variant='contained'
-                    onClick={()=>deleteJob(job._id)}
-                    >Delete</Button> */}
+                    onClick={()=>deleteJob(job._id)}>
+                    Delete
+                    </Button>
                   </Stack>
                   </CardActions>
                 </Card>
