@@ -30,6 +30,8 @@ export default function AllJobs() {
       message: ""
     });
 
+    const [query,setQuery]= React.useState([]);
+
     React.useEffect(() => {
     axios.get(`${url}/jobs`)
     .then((res)=>{
@@ -40,6 +42,17 @@ export default function AllJobs() {
         console.log(err);
     })
     }, [token]);
+
+    const getFiltered=()=>{
+      axios.get(`${url}/jobs?q=${query}`)
+      .then((res)=>{
+        //console.log(res);
+        setJobs(res.data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    }
 
     const deleteJob=(id)=>{
       
@@ -81,9 +94,21 @@ export default function AllJobs() {
     <div>
       <AppBar position="relative">
         <Toolbar>
+          <Stack direction="row" spacing={50}>
           <Typography variant="h6" color="inherit" noWrap>
             Available jobs
           </Typography>
+          <Box>
+          <input type="text" 
+          style={{width:'300px', height:'30px'}}
+          placeholder='Search your favourite job by your skills or location '
+          onChange={(e)=>setQuery(e.target.value)}
+          />
+          <Button size="medium" variant='contained'
+          onClick={getFiltered}>Search</Button>
+          </Box>
+          </Stack>
+          
         </Toolbar>
       </AppBar>
       {error.status &&

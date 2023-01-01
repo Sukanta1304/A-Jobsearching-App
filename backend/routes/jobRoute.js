@@ -7,31 +7,40 @@ const jobRouter= Router();
 jobRouter.get("/",async(req,res)=>{
     const jobs= await JobModel.find();
     if(jobs){
-        const {catagory,location}= req.query;
-        if(catagory){
-            const jobs= await JobModel.find({catagory});
+        const {q}= req.query;
+        if(q){
+            const jobs= await JobModel.find({$or:[{locate:new RegExp(q,'i')},{skillrequire:new RegExp(q,'i')}]});
             if(jobs){
                 res.status(200).send(jobs)
             }else{
                 res.status(404).send(`No jobs found`)
             }
         }
-        else if(location){
-            const jobs= await JobModel.find({locate});
-            if(jobs){
-                res.status(200).send(jobs)
-            }else{
-                res.status(404).send(`No jobs found`)
-            } 
-        }
-        else if(catagory && location){
-            const jobs= await JobModel.find({catagory,locate});
-            if(jobs){
-                res.status(200).send(jobs)
-            }else{
-                res.status(404).send(`No jobs found`)
-            } 
-        }else{
+        // else if(location){
+        //     const jobs= await JobModel.find({locate:new RegExp(location,'i')});
+        //     if(jobs){
+        //         res.status(200).send(jobs)
+        //     }else{
+        //         res.status(404).send(`No jobs found`)
+        //     } 
+        // }
+        // else if(catagory && location){
+        //     const jobs= await JobModel.find({catagory:new RegExp(catagory,'i'),locate:new RegExp(location,'i')});
+        //     if(jobs){
+        //         res.status(200).send(jobs)
+        //     }else{
+        //         res.status(404).send(`No jobs found`)
+        //     } 
+        // }
+        // else if(skills){
+        //     const jobs= await JobModel.find({skillrequire:new RegExp(skills,'i'),locate:new RegExp(location,'i')});
+        //     if(jobs){
+        //         res.status(200).send(jobs)
+        //     }else{
+        //         res.status(404).send(`No jobs found`)
+        //     }  
+        // }
+        else{
             res.status(200).send(jobs)
         }
         

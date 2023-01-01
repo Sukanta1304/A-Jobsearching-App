@@ -23,7 +23,7 @@ function Applyajob() {
     const url= import.meta.env.VITE_APP_BACKEND_URL;
     const token= JSON.parse(localStorage.getItem("jobPortalToken"));
     const {id}= useParams();
-    console.log(id);
+    //console.log(id);
     const [job,setjob]= React.useState({});
     const [applied,setApplied]= React.useState([]);
     const [error,setError]= React.useState({
@@ -34,7 +34,7 @@ function Applyajob() {
     useEffect(() => {
     axios.get(`${url}/jobs/${id}`)
     .then((res)=>{
-        console.log(res);
+        //console.log(res);
         setjob(res.data);
     })
     .catch((err)=>{
@@ -58,9 +58,9 @@ function Applyajob() {
       }, [token])
 
       const isApplied=(id)=>{
-        console.log(id);
+        //console.log(id);
         let result= applied.filter((el)=>el.jobid==id);
-        console.log(result);
+        //console.log(result);
         if(result.length>0){
           return true;
         }else{
