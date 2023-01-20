@@ -94,8 +94,9 @@ export default function AllJobs() {
     <div>
       <AppBar position="relative">
         <Toolbar>
-          <Stack direction="row" spacing={50}>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Stack direction={{ xs: 'column', sm: 'row' }} 
+          spacing={{ xs: 1, sm: 2, md: 4 }}>
+          <Typography variant="h6" color="inherit">
             Available jobs
           </Typography>
           <Box>
