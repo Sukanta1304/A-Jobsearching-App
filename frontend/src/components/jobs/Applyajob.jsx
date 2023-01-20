@@ -1,22 +1,20 @@
 import { useParams } from 'react-router-dom'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 
 function Applyajob() {
@@ -119,59 +117,65 @@ function Applyajob() {
             </Alert>
         }
         {/* Hero unit */}
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 0,
-            pb: 6,
-          }}
-        >
-        </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            
-              <Grid item xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h5" component="h2">
-                      {job.company}
-                    </Typography>
-                    <Typography variant="b" component="h3">
-                     Role : {job.position}
-                    </Typography>
-                    <Typography variant="b" component="h5">
-                      :: About Company ::
-                    </Typography>
-                    <Typography>
-                     {job.companyDetails}
-                    </Typography>
-                    <Typography>
-                     Category of Company : {job.catagory}
-                    </Typography>
-                    <Typography>
-                     Company Location : {job.locate}
-                    </Typography>
-                    <Typography variant="b" component="h5">
-                    :: Required Skills :: 
-                    </Typography>
-                    <Typography>
-                    {job.skillrequire}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small"
-                    disabled={isApplied(job._id)}
-                    onClick={applyNow}
-                    >Apply Now</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-          </Grid>
-        </Container>
+        <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Details</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+            <TableRow
+              key={1}>
+              <TableCell component="th" scope="row">
+                Catagory of the Job
+              </TableCell>
+              <TableCell align="right">{job.catagory}</TableCell>
+            </TableRow>
+            <TableRow
+              key={2}>
+              <TableCell component="th" scope="row">
+                Company name
+              </TableCell>
+              <TableCell align="right">{job.company}</TableCell>
+            </TableRow>
+            <TableRow
+              key={3}>
+              <TableCell component="th" scope="row">
+                Position
+              </TableCell>
+              <TableCell align="right">{job.position}</TableCell>
+            </TableRow>
+            <TableRow
+              key={4}>
+              <TableCell component="th" scope="row">
+                Salary
+              </TableCell>
+              <TableCell align="right">{job.salary} LPA</TableCell>
+            </TableRow>
+            <TableRow
+              key={5}>
+              <TableCell component="th" scope="row">
+                Location
+              </TableCell>
+              <TableCell align="right">{job.locate}</TableCell>
+            </TableRow>
+            <TableRow
+              key={6}>
+              <TableCell component="th" scope="row">
+                Require Skills
+              </TableCell>
+              <TableCell align="right">{job.skillrequire}</TableCell>
+            </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
       </main>
+      <Button variant="contained" 
+      disabled={isApplied(job._id)}
+      onClick={applyNow}
+      >Apply Now</Button>
       </div>
   );
 }

@@ -74,10 +74,10 @@ function Landing() {
               spacing={2}
               justifyContent="center"
             >
-                <Link to="/signup">
+                <Link to="/signup" style={{textDecoration:"none"}}>
                 <Button variant="contained">Sign up</Button>
                 </Link>
-                <Link to="/signin">
+                <Link to="/signin" style={{textDecoration:"none"}}>
                 <Button variant="outlined">Sign in</Button>
                 </Link>
             </Stack>

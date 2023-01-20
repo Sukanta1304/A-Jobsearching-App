@@ -85,7 +85,7 @@ export default function AppliedJobs() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Link to={`/user/applyajob/${job.jobid}`}>
+                    <Link to={`/user/applyajob/${job.jobid}`} style={{textDecoration:"none"}}>
                     <Button size="small" variant='contained'>Detais</Button>
                     </Link>
                   </CardActions>

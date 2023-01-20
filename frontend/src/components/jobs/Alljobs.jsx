@@ -162,7 +162,7 @@ export default function AllJobs() {
                   </CardContent>
                   <CardActions>
                   <Stack direction="row" spacing={2}>
-                  <Link to={`/user/applyajob/${job._id}`}>
+                  <Link to={`/user/applyajob/${job._id}`} style={{textDecoration:"none"}}>
                     <Button size="small" variant='contained'>Details</Button>
                   </Link>
                     <EditaJob id={job._id} />
